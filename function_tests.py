@@ -2,9 +2,11 @@ from selenium import webdriver
 import unittest
 from selenium.webdriver.common.keys import Keys
 import time
+
+
 class NewVistorTest(unittest.TestCase):
     def setUp(self):
-        self.browser=webdriver.Firefox()
+        self.browser = webdriver.Firefox()
 
     def tearDown(self):
         self.browser.quit()
@@ -12,18 +14,16 @@ class NewVistorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         self.browser.get("http://localhost:8000")
         # 断言 assertIn assertEqual assertTrue assertFalse
-        self.assertIn('To-Do',self.browser.title)
+        self.assertIn('To-Do', self.browser.title)
 
         # 比对h1标签是否包含有关数据
-        header_text=self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('To-Do',header_text)
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('To-Do', header_text)
 
         # 查找输入框 对比默认值
-        inputbox=self.browser.find_element_by_id('id_new_item')
+        inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
-            inputbox.get_attribute('placeholder'),
-            'Enter a to-do item'
-        )
+            inputbox.get_attribute('placeholder'), 'Enter a to-do item')
 
         # 输入数据提交
         inputbox.send_keys('Buy peacock feathers')
@@ -31,17 +31,16 @@ class NewVistorTest(unittest.TestCase):
         time.sleep(1)
 
         # 对比列表是否包含数据
-        table= self.browser.find_element_by_id('id_list_table')
+        table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text =='1:Buy peacock feathers' for row in rows
-            ))
+            any(row.text == '1:Buy peacock feathers' for row in rows),
+            "New to-do item did not apper in table"  #自定义异常输出
+        )
 
         #完成测试
         self.fail("Finish the test")
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     unittest.main(warnings='ignore')
-
-
