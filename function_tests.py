@@ -33,13 +33,26 @@ class NewVistorTest(unittest.TestCase):
         # 对比列表是否包含数据
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
+        # f插入局部变量
         self.assertTrue(
             any(row.text == '1:Buy peacock feathers' for row in rows),
-            "New to-do item did not apper in table"  #自定义异常输出
+            f"New to-do item did not apper in table. Content were:\n{table.text}"  #自定义异常输出
         )
+         # 输入数据提交
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Buy peacock feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
 
+        # 对比列表是否包含数据
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+
+        self.assertIn('1:Buy peacock feathers',[row.text for row in rows])
+        self.assertIn('Buy peacock feathers to make a fly',[row.text for row in rows])
         #完成测试
         self.fail("Finish the test")
+
 
 
 if __name__ == '__main__':
