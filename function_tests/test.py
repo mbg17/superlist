@@ -1,10 +1,11 @@
 from selenium import webdriver
-import unittest
+# import unittest
+from django.test import LiveServerTestCase
 from selenium.webdriver.common.keys import Keys
 import time
 
 
-class NewVistorTest(unittest.TestCase):
+class NewVistorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
 
@@ -18,7 +19,8 @@ class NewVistorTest(unittest.TestCase):
         self.assertIn(row_text, [row.text for row in rows])
 
     def test_can_start_a_list_and_retrieve_it_later(self):
-        self.browser.get("http://localhost:8000")
+        # self.live_server_url获取本地地址
+        self.browser.get(self.live_server_url)
         # 断言 assertIn assertEqual assertTrue assertFalse
         self.assertIn('To-Do', self.browser.title)
 
@@ -57,11 +59,10 @@ class NewVistorTest(unittest.TestCase):
         # self.assertIn('1:Buy peacock feathers', [row.text for row in rows])
         # self.assertIn('Buy peacock feathers to make a fly',
         #               [row.text for row in rows])
-        self.check_for_now_in_list_table('Buy peacock feathers')
-        self.check_for_now_in_list_table('Buy peacock feathers to make a fly')
+        self.check_for_now_in_list_table('1:Buy peacock feathers')
+        self.check_for_now_in_list_table('2:Buy peacock feathers to make a fly')
         #完成测试
         self.fail("Finish the test")
 
 
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
+
