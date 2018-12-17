@@ -57,7 +57,7 @@ class NewVistorTest(unittest.TestCase):
         # self.assertIn('1:Buy peacock feathers', [row.text for row in rows])
         # self.assertIn('Buy peacock feathers to make a fly',
         #               [row.text for row in rows])
-        self.check_for_now_in_list_table('1:Buy peacock feathers')
+        self.check_for_now_in_list_table('Buy peacock feathers')
         self.check_for_now_in_list_table('Buy peacock feathers to make a fly')
         #完成测试
         self.fail("Finish the test")
