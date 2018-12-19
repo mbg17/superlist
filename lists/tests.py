@@ -10,25 +10,25 @@ from lists.models import Item
 
 class HomePageTest(TestCase):
     # 测试url能否解析
-    def test_root_url_resolves_to_home_page_view(self):
-        found = resolve('/')
-        self.assertEqual(found.func, home_page)
+    # def test_root_url_resolves_to_home_page_view(self):
+    #     found = resolve('/')
+    #     self.assertEqual(found.func, home_page)
 
     # 测试页面是否正确
-    def test_home_page_reyurns_correct_html(self):
-        #request = HttpRequest()
-        response = self.client.get('/')
-        html = response.content.decode('utf-8')
-        # 初始对比网页返回值
-        # self.assertTrue(html.startswith('<html>'))
-        # self.assertIn('<title>To-Do lists</title>',html)
-        # self.assertTrue(html.endswith('</html>'))
-        # 手动渲染模板
-        try:
-            expected_html = render_to_string('home.html')
-            self.assertEqual(expected_html, html)
-        except Exception:
-            pass
+    # def test_home_page_reyurns_correct_html(self):
+    #     #request = HttpRequest()
+    #     response = self.client.get('/')
+    #     html = response.content.decode('utf-8')
+    #     # 初始对比网页返回值
+    #     # self.assertTrue(html.startswith('<html>'))
+    #     # self.assertIn('<title>To-Do lists</title>',html)
+    #     # self.assertTrue(html.endswith('</html>'))
+    #     # 手动渲染模板
+    #     try:
+    #         expected_html = render_to_string('home.html')
+    #         self.assertEqual(expected_html, html)
+    #     except Exception:
+    #         pass
 
     # 校验当前模板
     def test_uses_home_template(self):
@@ -49,7 +49,7 @@ class HomePageTest(TestCase):
     def test_redirects_after_POST(self):
         response = self.client.post('/', data={'item_text': 'A new list item'})
         self.assertEqual(response.status_code,302)
-        self.assertEqual(response["location"],'/')
+        self.assertEqual(response["location"],'/lists/the-only-list-in-the-world/')
 
     # 测试成功保存一个数据后的结果
     def test_only_saves_items_when_necessary(self):
@@ -57,12 +57,12 @@ class HomePageTest(TestCase):
         self.assertEqual(Item.objects.count(),0)
 
     # 测试数据是否存入数据库
-    def test_displays_all_list_items(self):
-        Item.objects.create(text='itemey 1')
-        Item.objects.create(text='itemey 2')
-        reponse=self.client.get('/')
-        self.assertIn('itemey 1',reponse.content.decode())
-        self.assertIn('itemey 2',reponse.content.decode())
+    # def test_displays_all_list_items(self):
+    #     Item.objects.create(text='itemey 1')
+    #     Item.objects.create(text='itemey 2')
+    #     reponse=self.client.get('/')
+    #     self.assertIn('itemey 1',reponse.content.decode())
+    #     self.assertIn('itemey 2',reponse.content.decode())
         
     # 数据模型测试
 class ItemModelTest(TestCase):
@@ -85,3 +85,14 @@ class ItemModelTest(TestCase):
 
         self.assertEqual(first_saved_item.text, 'The first (ever) list item')
         self.assertEqual(second_saved_item.text, 'Item the second')
+class ListViewTest(TestCase):
+    def test_uses_list_template(self):
+        response=self.client.get('/lists/the-only-list-in-the-world/')
+        self.assertTemplateUsed(response,'list.html')
+
+    def test_displays_all_list_items(self):
+        Item.objects.create(text='itemey 1')
+        Item.objects.create(text='itemey 2')
+        response=self.client.get('/lists/the-only-list-in-the-world/')
+        self.assertContains(response,'itemey 1')
+        self.assertContains(response,'itemey 2')
