@@ -6,5 +6,5 @@ class List(models.Model):
 
 class Item(models.Model):
     text=models.TextField(default='')
-    #  外间关联
+    #  外键关联
     list=models.ForeignKey(List,default=None,on_delete=models.SET_DEFAULT)
