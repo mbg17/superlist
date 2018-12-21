@@ -19,7 +19,7 @@ from lists import views as list_views
 from django.conf.urls import url, include
 from lists import urls as list_urls
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     url(r'^$', list_views.home_page, name='home'),
     # 去重，前缀为^list/，后缀通过项目文件下的urls匹配url，拓展性强
     url(r'^lists/', include(list_urls)),
