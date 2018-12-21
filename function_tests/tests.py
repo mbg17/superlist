@@ -1,12 +1,14 @@
 from selenium import webdriver
 # import unittest
 from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 import time
 
 
-class NewVistorTest(LiveServerTestCase):
+# class NewVistorTest(LiveServerTestCase):
+class NewVistorTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
 
@@ -112,20 +114,20 @@ class NewVistorTest(LiveServerTestCase):
     def test_layout_and_styling(self):
         self.browser.get(self.live_server_url)
         # 设置窗口大小
-        self.browser.set_window_size(1024,768)
-        inputbox=self.browser.find_element_by_id('id_new_item')
+        self.browser.set_window_size(1024, 768)
+        inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
             # 获取元素位置和尺寸
-            inputbox.location['x']+inputbox.size['width']/2,
+            inputbox.location['x'] + inputbox.size['width'] / 2,
             512,
-            delta=10
-        )
+            delta=10)
         inputbox.send_keys('testing')
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_now_in_list_table('testing')
+        time.sleep(2)
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.wait_for_now_in_list_table('1:testing')
         self.assertAlmostEqual(
             # 获取元素位置和尺寸
-            inputbox.location['x']+inputbox.size['width']/2,
+            inputbox.location['x'] + inputbox.size['width'] / 2,
             512,
-            delta=10
-        )
+            delta=10)
