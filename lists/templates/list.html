@@ -12,6 +12,7 @@
     </form>
     <table id='id_list_table'>
         <!--通过views模板映射循环写入-->
+        <!--反向查询，通过模型中list_的id反向查item表-->
         {%　for item in list.item_set.all %}
         <tr><td>{{ forloop.counter }}:{{ item.text }}</td></tr>
         {% endfor %}
