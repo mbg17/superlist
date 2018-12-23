@@ -1,16 +1,21 @@
 from selenium import webdriver
 # import unittest
-from django.test import LiveServerTestCase
+# from django.test import LiveServerTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 import time
-
+import os
 
 # class NewVistorTest(LiveServerTestCase):
 class NewVistorTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
+        # 从输入框获取参数
+        staging_server=os.environ.get("STAGING_SERVER")
+        if staging_server:
+            self.live_server_url='http://'+staging_server
+
 
     def tearDown(self):
         self.browser.quit()
