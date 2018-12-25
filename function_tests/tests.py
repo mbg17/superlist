@@ -11,7 +11,7 @@ import os
 class NewVistorTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
-        # 从输入框获取参数
+        # 从输入框获取参数 linux地址：192.168.85.137
         staging_server=os.environ.get("STAGING_SERVER")
         if staging_server:
             self.live_server_url='http://'+staging_server
