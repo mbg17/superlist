@@ -1,0 +1,17 @@
+2019-05-16 21:17:01,356 - config.py - 85 - test
+2019-05-16 21:17:01,356 - config.py - 86 - haode
+2019-05-16 21:17:01,357 - config.py - 87 - error
+2019-05-16 21:17:40,407 - config.py - 85 行 - test
+2019-05-16 21:17:40,408 - config.py - 86 行 - haode
+2019-05-16 21:17:40,409 - config.py - 87 行 - error
+2019-05-16 21:21:35,811 - config.py - 85 行 - test 1
+2019-05-16 21:21:35,812 - config.py - 86 行 - test
+2019-05-16 21:21:35,813 - config.py - 87 行 - test
+2019-05-16 21:23:36,243 - config.py - 86 行 - test 1
+2019-05-16 21:23:36,245 - config.py - 87 行 - test
+2019-05-16 21:23:36,245 - config.py - 88 行 - test
+2019-05-16 21:23:36,246 - config.py - 100 行 - debug message
+2019-05-16 21:23:36,246 - config.py - 101 行 - info message
+2019-05-16 21:23:36,247 - config.py - 102 行 - warning message
+2019-05-16 21:23:36,247 - config.py - 103 行 - error message
+2019-05-16 21:23:36,248 - config.py - 104 行 - critical message
