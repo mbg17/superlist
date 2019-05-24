@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 {
     "python.formatting.provider": "yapf"
-}
+=======
+{
+        "python.formatting.provider": "yapf",
+        "python.pythonPath": "D:\\python3.7\\python.exe"
+>>>>>>> 029235d915e722c98c45dda773804ab851c69c8a
+    }
