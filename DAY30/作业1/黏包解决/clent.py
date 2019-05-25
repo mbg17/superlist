@@ -4,7 +4,7 @@ import struct
 sk = socket.socket()
 sk.connect(('127.0.0.1', 8080))
 while True:
-    # test1
+    # test11
     cmd = sk.recv(1024).decode('gbk')
     if cmd == 'q':
         break
