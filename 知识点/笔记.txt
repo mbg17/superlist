@@ -1,0 +1,7 @@
+1、if...elif...else
+
+2、循环中有break语句，else跟在循环体后面，若循环体中的break语句没有执行，则执行else语句。
+
+3、用在try...except...else...finally语句中，没有异常发生时执行。
+
+4、while/else当while因条件为假而退出(即没有被break中断)时运行else块
