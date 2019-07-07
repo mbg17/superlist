@@ -6,7 +6,7 @@ conn = pymysql.connect(
     port=3306,  # 端口号
     user='root',  # 用户名
     passwd='root',  # 密码
-    db='db1')  # 链接的数据库
+    db='host')  # 链接的数据库
 cursor = conn.cursor()  # 建立游标执行语句
 sql = 'insert into student(gender,class_id,sname) values (%s,%s,%s)'
 cursor.execute(sql, ['男', 1, '陆远'])  # 插入单条
