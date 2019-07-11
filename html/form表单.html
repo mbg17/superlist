@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FORM标签</title>
+</head>
+<body>
+<form action="">
+    <p>
+        <lable for='username'>用户名</lable>
+        <input id='username' name='username' type="text">
+    </p>
+    <p>
+        <label for="password">密码</label>
+        <input id='password' name='password' type="password">
+    </p>
+    <p>性别:
+        <label for="boy">男</label>
+        <input id='boy' name='gender' type="radio">
+        <label for="girl">女</label>
+        <input id='girl' name='gender' type="radio">
+        <label for="gender">保密</label>
+        <input id='gender' name='gender' type="radio">
+    </p>
+    <p>
+        爱好:
+        <label for="basketball">篮球</label>
+        <input type="checkbox" name="hobby" id="basketball">
+        <label for="football">足球</label>
+        <input type="checkbox" name="hobby" id="football">
+        <label for="ball">蔡徐坤</label>
+        <input type="checkbox" name="hobby" id="ball">
+    </p>
+    <p>
+        <label for="info">自我介绍</label>
+        <textarea name="info" id="info" cols="30" rows="10"></textarea>
+    </p>
+    <p>
+        <label for="country">省</label>
+        <select name="country" id="country">
+            <option value="sh">上海</option>
+            <option value="bj">北京</option>
+            <option value="gd">广东</option>
+        </select>
+        <label for="city">市</label>
+        <select name="city" id="city">
+            <optgroup label="上海">
+            <option value="sh">闵行区</option>
+            <option value="bj">徐汇区</option>
+            <option value="gd">黄浦区</option>
+            </optgroup>
+        </select>
+    </p>
+    <p>
+        <label for="file">文件:</label>
+        <input id='file' name='file' type="file">
+    </p>
+    <input type="submit" value="提交">
+    <input type="reset" value="重置">
+    <input type="button" value="按钮">
+</form>
+</body>
+</html>
