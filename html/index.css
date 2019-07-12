@@ -1,0 +1,39 @@
+/*普通选择器*/
+p{
+    color: green;
+}
+/*id选择器*/
+#p1{
+    color: blue;
+}
+/*类选择器*/
+.p2{
+    color: orange;
+}
+/*通用选择器*/
+*{
+    font-size: 18px;
+}
+/*后代选择器*/
+div p{
+    color: yellow;
+}
+/*儿子选择器*/
+div div>p{
+    color: gray;
+}
+/*毗邻选择器*/
+div+p{
+    color: #761c19;
+}
+/*兄弟选择器*/
+div div~p{
+    color: tomato;
+}
+/*条件选择器*/
+p[ys]{
+    color: greenyellow;
+}
+p[ys='789']{
+    color: darkseagreen;
+}
