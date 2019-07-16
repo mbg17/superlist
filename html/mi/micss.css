@@ -1,0 +1,64 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+div.a1{
+    background: #333333;
+    height: 40px;
+    margin: 0px;
+}
+
+div.a1 a,div.a1 span{
+    font-size: 12px;
+    color: #b0b0b0;
+    text-decoration: none;
+    line-height:40px;
+}
+div.a1{
+    text-indent: 145px;
+}
+div.a1 a:hover{
+    color: white;
+    text-decoration: none;
+}
+div.logo{
+    height: 100px;
+    display: inline-block;
+}
+div.logo>img{
+    padding: 15px 142px 15px 15px;
+}
+div.title{
+    float: right;
+    line-height:40px;
+    padding: 26px 10px 38px;
+    text-decoration: none;
+    display: inline-block;
+}
+div.find{
+    float: right;
+    height: 51px;
+    width: 271px;
+    border:1px solid black;
+    display: inline-block;
+    margin: 26px 20px 26px 0px;
+}
+div.title a{
+    text-decoration: none;
+    margin-right: 20px;
+}
+div.title a:hover{
+    color:orange;
+}
+div.title a:active{
+    color:black;
+}
+div.find input{
+    border:0px;
+    height: 48px;
+    width: 218px;
+    border: 1px solid black;
+    margin: -1px 0px 1px -1px;
+}
+
+

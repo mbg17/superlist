@@ -1,0 +1,87 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+/*左边栏*/
+.left{
+    background: rgb(76,76,76);
+    float:left;
+    position: fixed;
+    height: 100%;
+    width: 15%;
+}
+/*头像区*/
+.header-image{
+    height: 128px;
+    width: 128px;
+    border: 3px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top:15px ;
+    margin-bottom: 15px;
+}
+.image{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.blog-name{
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    margin-bottom: 15px;
+}
+.blog-detail{
+    text-align: center;
+    color: white;
+    border: 2px solid white;
+    margin: 20px;
+}
+.blog-links,
+.blog-tags{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.blog-links a,
+.blog-tags a{
+    color: white;
+    text-decoration: none;
+}
+.tag a:before{
+    content: '#';
+}
+/*右边栏*/
+.right{
+    background: rgb(227,227,227);
+    float:right;
+    /*height: 1000px;*/
+    width: 85%;
+}
+.content-title{
+    display: inline-block;
+    border-left: 3px solid red;
+    padding-left:10px;
+}
+.date{
+    float: right;
+    padding: 30px;
+}
+.content{
+    margin: 20px 30px 20px 30px ;
+    background: white;
+}
+.content-text{
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.content-tags{
+    margin-top: 10px;
+    border-top: 2px solid #e0e0e0;
+    padding: 10px 20px 10px 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}

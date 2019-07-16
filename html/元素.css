@@ -1,0 +1,30 @@
+body {
+    /*字体格式*/
+    font-family: "Apple Color Emoji",微软雅黑;
+    /*字体大小*/
+    font-size: 14px;
+}
+/*颜色rgb样式*/
+.c1 {
+    color: rgb(255,0,0);
+}
+/*颜色单词样式*/
+.c2{
+    text-align: center;
+    color:green;
+    text-indent: 28px;
+}
+/*颜色代码样式*/
+.c3{
+    color:#2aabd2;
+}
+/*文本对齐*/
+.c4 {
+    text-align: right;
+    /*文本粗细*/
+    font-weight: bold;
+}
+/*文本缩进*/
+a {
+    text-decoration: none;
+}
