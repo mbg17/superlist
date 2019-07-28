@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>输入框</title>
+</head>
+<body>
+<input id="shuru" type="text" value="西游记">
+<input id="search" type="button" value="搜索">
+<script>
+    //定位输入框元素
+    var shuru = document.getElementById('shuru');
+    // 定位搜索按钮
+    var search = document.getElementById('search');
+    //获取聚焦事件
+    shuru.onfocus=function () {
+        //设置输入框内容为空
+        this.value="";
+    };
+    shuru.onblur=function () {
+        //如果输入框内容为空，将文本重新填回输入框
+        if(!this.value.trim()){
+            this.value="西游记";
+        }
+    };
+    //点击事件
+    search.onclick=function () {
+        var html = "http://www.baidu.com/s?wd="+shuru.value;
+        // console.log(html);
+        // 跳转到指定页面
+        location.href= html;
+    };
+</script>
+</body>
+</html>

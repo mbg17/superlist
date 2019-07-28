@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器</title>
+</head>
+<body>
+<input id="time" type="text">
+<input id="start" type="button" value="开始">
+<input id="stop" type="button" disabled value="结束">
+<script>
+    // 保存计时器元素的变量
+    var t;
+    //定位开始和结束开关的变量
+    var start = document.getElementById('start');
+    var stop = document.getElementById('stop');
+    //填充事件到输入框的方法
+    function foo(){
+        var date = new Date();
+        var datestr = date.toLocaleString();
+        var time = document.getElementById('time');
+        time.value=datestr;
+    }
+    //开始键点击事件函数
+    start.onclick= function () {
+        foo();
+        // 设置每1秒执行一次填充函数
+        t = setInterval(foo,1000);
+        //将当前按钮置灰
+        this.disabled="true";
+        //将结束按钮变为可选状态
+        stop.removeAttribute("disabled");
+    };
+    //结束键点击事件函数
+    stop.onclick=function () {
+        start.removeAttribute("disabled");
+        stop.disabled="true";
+        //清除当前的定时器
+        clearInterval(t);
+    };
+</script>
+</body>
+</html>

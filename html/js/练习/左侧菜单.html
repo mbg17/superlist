@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>左侧菜单</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #d0 {
+            width: 15%;
+            background-color: #2e6da4;
+            height: 1000px;
+        }
+
+        div.menu {
+            background-color: #2aabd2;
+            border: 1px solid black;
+        }
+
+        div.list {
+            background-color: darkviolet;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="d0">
+    <div class="menu">菜单1</div>
+    <div class="list hide">
+        <div>111</div>
+        <div>222</div>
+        <div>333</div>
+    </div>
+    <div class="menu">菜单2</div>
+    <div class="list hide">
+        <div>111</div>
+        <div>222</div>
+        <div>333</div>
+    </div>
+    <div class="menu ">菜单3</div>
+    <div class="list hide">
+        <div>111</div>
+        <div>222</div>
+        <div>333</div>
+    </div>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+        var $list = $("div.menu");
+        // 自动遍历绑定
+        $list.click(function () {
+            // 第一种
+            // 找到所有的下拉框的元素
+            var $list_2 = $('.list');
+            // 将下拉框的元素全部隐藏掉
+            // list_2.addClass('hide');
+            // 当前操作的下一个元素移除hide类
+            // $(this).next().removeClass('hide');
+            // 第二种
+            //找到当前操作的标签的下一个元素
+            var $list_3 = $(this).next();
+            // 移除hide类
+            if ($list_3.hasClass('hide')){
+
+            $list_3.removeClass('hide');
+            console.log(this);
+            console.log($(this));
+            // console.log($($list_3));
+            //将同一级的list类加上hide类
+            $($list_3).siblings('.list').addClass('hide');
+        }else{
+            $list_3.toggleClass('hide');
+        }
+        });
+    </script>
+</div>
+</body>
+</html>

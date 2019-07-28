@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下拉框</title>
+</head>
+<body>
+<select id="city">
+    <option value="000" selected="selected">--请选择--</option>
+    <option value="1">北京</option>
+    <option value="2">上海</option>
+    <option value="3">天津</option>
+</select>
+<select id="country">
+</select>
+<script>
+    //找到id为city的下拉框组
+    var city = document.getElementById('city');
+    // 找到id为country的下拉框组
+    var country = document.getElementById('country');
+    // 设置城市对应的区
+    var data = {
+        1:['朝阳','昌平','海定'],
+        2:['闵行','马桥','徐家汇'],
+        3:['测试1','测试2','测试三']
+    };
+    // onchange       域的内容被改变。             应用场景：通常用于表单元素,当元素内容被改变时触发.（select联动）
+    city.onchange=function () {
+        //变更前清空内容
+        country.innerHTML='';
+        //根据city标签值获取区列表
+        var areas = data[this.value];
+        //遍历去列表
+        for(var i =0;i<areas.length;i++){
+            //创建option标签
+            var optEle = document.createElement('option');
+            // 设置文本内容
+            optEle.innerText=areas[i];
+            // 追加到区下拉框
+            country.appendChild(optEle);
+        }
+    };
+</script>
+</body>
+</html>

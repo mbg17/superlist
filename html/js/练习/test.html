@@ -1,0 +1,23 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+<script type="text/javascript" src="./jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("button").click(function(){
+    $(this).siblings('p').toggleClass('hide')
+  });
+});
+</script>
+<style>
+.hide{
+	display:none;
+}
+</style>
+</head>
+<body>
+<p class='d1'>这是一个段落。</p>
+<button>切换</button>
+<p class='d1'>第二个段落</p>
+</body>
+</html>

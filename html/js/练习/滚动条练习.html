@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动条练习</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .c1{
+            background-color: green;
+            height: 2000px;
+            width: 100%;
+        }
+        .hide{
+            display: none;
+        }
+        .b1{
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="c1">滚动条测试</div>
+<button class="b1 hide">返回顶部</button>
+<script src="jquery-3.4.1.min.js"></script>
+<script>
+    $(window).scroll(function () {
+        if($(this).scrollTop()>100){
+            $('.b1').removeClass('hide');
+        }else{
+            $('.b1').addClass('hide');
+        }
+    });
+    $('.b1').click(function () {
+        $(window).scrollTop(0);
+    });
+</script>
+</body>
+</html>

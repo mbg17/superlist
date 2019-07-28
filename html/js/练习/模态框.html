@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模态框</title>
+    <style>
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(43, 96, 113, 0.39);
+            z-index: 998;
+        }
+
+        .hide {
+            display: none;
+        }
+        .modal{
+            border: 3px solid red;
+            height: 400px;
+            width: 600px;
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 1000;
+            /*height: 50%;*/
+            /*width: 50%;*/
+            margin-top: -200px;
+            margin-left: -300px;
+        }
+    </style>
+</head>
+<body>
+<button id="b1">屠龙宝刀，点击就送</button>
+<div class="cover hide"></div>
+<div class="modal hide">
+    <form>
+        <div>
+            <label>用户名：
+                <input type="text">
+            </label>
+        </div>
+        <div>
+            <label>用户名：
+                <input type="text">
+            </label>
+        </div>
+        <input type="submit" value="登录">
+        <input type="button" value="取消">
+    </form>
+</div>
+<script src="jquery-3.4.1.min.js"></script>
+<script>
+    $('#b1').click(function () {
+        $(this).siblings().removeClass('hide');
+    });
+    $(".modal input[type='button']").click(function () {
+        var $bt = $('#b1');
+        $('.cover,.modal').addClass('hide');
+    })
+</script>
+</body>
+</html>
