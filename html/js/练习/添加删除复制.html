@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加删除复制</title>
+</head>
+<body>
+<table id="t1" border="1">
+    <thead>
+    <tr>
+        <th>选择</th>
+        <th>姓名</th>
+        <th>职位</th>
+        <th>功能</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><span>陆远</span></td>
+        <td><span>导演</span></td>
+        <td>
+            <button class="delete">删除</button>
+            <button class="copy">复制</button>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><span>傻逼</span></td>
+        <td><span>无</span></td>
+        <td>
+            <button class="delete">删除</button>
+            <button class="copy">复制</button>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><span>牛逼</span></td>
+        <td><span>演员</span></td>
+        <td>
+            <button class="delete">删除</button>
+            <button class="copy">复制</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<input type="button" id="b1" value="添加">
+<script src="jquery-3.4.1.min.js"></script>
+<script>
+    var $tbody = $('tbody');
+    $('#b1').on('click',function () {
+        // 创建tr标签
+        var trEle = document.createElement('tr');
+        // 使用jquery将tr元素增加内容
+        $(trEle).html(
+            "<td><input type='checkbox'></td>" +
+            "<td><span>牛逼</span></td>" +
+            "<td><span>演员</span></td>" +
+            "<td>\n" +
+            "<button class=\"delete\">删除</button>\n" +
+            "<button class=\"copy\">复制</button>\n" +
+            " </td>"
+        );
+        // 找到需要追加内容的标签，增加内容
+        $('#t1').find('tbody').append(trEle);
+    });
+    $tbody.on('click','.delete',function () {
+        // 找到按钮最外层的标签
+        var $Ele = $(this).parent().parent();
+        //将该元素删除
+        $Ele.remove();
+    });
+    //事件委托
+    $tbody.on('click','.copy',function () {
+        // 找到按钮最外层的标签
+        var $Ele = $(this).parent().parent();
+        // 将最外层标签的内容完整的追加到后面
+        $Ele.clone(true).insertAfter($Ele);
+    });
+</script>
+</body>
+</html>

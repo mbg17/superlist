@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全选反选</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+        <tr>
+            <th>选择</th>
+            <th>姓名</th>
+            <th>职位</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td><span>陆远</span></td>
+            <td><span>导演</span></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td><span>傻逼</span></td>
+            <td><span>无</span></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td><span>牛逼</span></td>
+            <td><span>演员</span></td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    <input type="button" id="b1" value="全选">
+    <input type="button" id="b2" value="反选">
+    <input type="button" id="b3" value="取消">
+</p>
+<script src="jquery-3.4.1.min.js"></script>
+<script>
+    var $check = $(':checkbox');
+    $('#b1').click(function () {
+        $check.prop('checked',true);
+    });
+    $('#b3').click(function () {
+        $check.prop('checked',false);
+    });
+    $('#b2').click(function () {
+        for(var i =0;i<$check.length;i++){
+            if ($($check[i]).prop('checked')){
+                $($check[i]).prop('checked',false);
+            }else{
+                $($check[i]).prop('checked',true);
+            }
+        }
+    })
+</script>
+</body>
+</html>

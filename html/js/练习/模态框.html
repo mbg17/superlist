@@ -31,6 +31,9 @@
             margin-top: -200px;
             margin-left: -300px;
         }
+        span{
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -40,16 +43,18 @@
     <form>
         <div>
             <label>用户名：
-                <input type="text">
+                <input type="text" class="need">
+                <span></span>
             </label>
         </div>
         <div>
-            <label>用户名：
-                <input type="text">
+            <label>密码：
+                <input type="text" class="need">
+                <span></span>
             </label>
         </div>
-        <input type="submit" value="登录">
-        <input type="button" value="取消">
+        <input type="submit" id="b2" value="登录">
+        <input type="button" id="b3" value="取消">
     </form>
 </div>
 <script src="jquery-3.4.1.min.js"></script>
@@ -58,9 +63,22 @@
         $(this).siblings().removeClass('hide');
     });
     $(".modal input[type='button']").click(function () {
-        var $bt = $('#b1');
         $('.cover,.modal').addClass('hide');
-    })
+    });
+    $('#b2').click(function () {
+        var flag = true;
+        var $need = $('.need');
+        $need.next().text("");
+        for(var i=0;i<$need.length;i++){
+            if($($need[i]).val().trim().length===0){
+                var text = $($need[i]).parent().text().trim().slice(0,-1);
+                $($need[i]).next().text(text+'不能为空');
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    });
 </script>
 </body>
 </html>

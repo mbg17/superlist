@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>键盘事件</title>
+</head>
+<body>
+<table id="t1" border="1">
+    <thead>
+    <tr>
+        <th>选择</th>
+        <th>姓名</th>
+        <th>职位</th>
+        <th>状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><span>陆远</span></td>
+        <td><span>导演</span></td>
+        <td>
+            <select name="select">
+                <option value="1">上线</option>
+                <option value="2">离线</option>
+                <option value="3">关机</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><span>傻逼</span></td>
+        <td><span>无</span></td>
+        <td>
+            <select name="select">
+                <option value="1">上线</option>
+                <option value="2">离线</option>
+                <option value="3">关机</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><span>牛逼</span></td>
+        <td><span>演员</span></td>
+        <td>
+            <select name="select">
+                <option value="1">上线</option>
+                <option value="2">离线</option>
+                <option value="3">关机</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><span>牛逼</span></td>
+        <td><span>演员</span></td>
+        <td>
+            <select name="select">
+                <option value="1">上线</option>
+                <option value="2">离线</option>
+                <option value="3">关机</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><span>牛逼</span></td>
+        <td><span>演员</span></td>
+        <td>
+            <select name="select">
+                <option value="1">上线</option>
+                <option value="2">离线</option>
+                <option value="3">关机</option>
+            </select>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script src="jquery-3.4.1.min.js"></script>
+<script>
+    // 键盘按下状态
+    var type = false;
+    var $body = $('body');
+    // 键盘按下绑定事件
+    $body.on('keydown',function (event) {
+        if(event.keyCode===17){
+            type = true;
+        }
+    });
+    // 键盘弹起绑定事件
+    $body.on('keyup',function (event) {
+        if(event.keyCode===17){
+            type = false;
+        }
+    });
+    //单选框选择切换事件
+    $('select').on('change',function () {
+        // 获取当前选择框的值
+        var value = $(this).val();
+        // 当前多选框逐级找checkbox是否勾选
+        var $checkbox = $(this).parent().siblings().first().find('input');
+        //找到所有勾选的checkbox
+        var $checked = $('input:checked');
+        // 判断按键是否按下并且当前的checkbox是否勾选
+        if(type && $checkbox.prop('checked')){
+            // 循环遍历勾选的checkbox并且切换值
+            for (var i=0;i<$checked.length;i++){
+                $($checked[i]).parent().parent().last().find('select').val(value);
+            }
+        }
+    })
+</script>
+</body>
+</html>
