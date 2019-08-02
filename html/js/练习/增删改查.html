@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增删改查</title>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 998;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .modal {
+            border: 1px solid red;
+            height: 400px;
+            width: 600px;
+            z-index: 1000;
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -200px;
+            margin-left: -300px;
+        }
+    </style>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+        // 页面加载完毕后执行js代码
+        $(document).ready(function () {
+            var $name = $('#name');
+            var $hobby = $('#hobby');
+            var $tbody= $('tbody');
+            //新增按钮 将模态框弹出
+            $('#add').on('click', function () {
+                type = 0;
+                $('.cover,.modal').removeClass('hide');
+            });
+            // 提交按钮
+            $('#b2').on('click', function () {
+                // 获取输入框的值
+                // 判断状态进行操作
+                if ($tbody.data('eles') === undefined) {
+                    // 判断用户名或密码是否为空
+                    if ($name.val().trim() === '' || $hobby.val().trim() === '') {
+                        alert('姓名或爱好不能为空');
+                        return false;
+                    }
+                    //建立元素 添加到表格最后
+                    var trEle = document.createElement('tr');
+                    $(trEle).html(
+                        "<td>" + ($('tbody tr').length + 1) + "</td>" +
+                        "<td>" + $name.val() + "</td>" +
+                        "<td>" + $hobby.val() + "</td>" +
+                        "<td>" +
+                        "<button class='edit'>编辑</button> " +
+                        "<button class='delete'>删除</button>" +
+                        "</td>"
+                    );
+                    $('tbody').append(trEle);
+                    $name.val('');
+                    $hobby.val('');
+                    $('.cover,.modal').addClass('hide');
+                } else{
+                    if ($name.val().trim() === '' || $hobby.val().trim() === '') {
+                        alert('姓名或爱好不能为空');
+                        return false;
+                    }
+                    //将临时存储的变量取出
+                    var $eles = $tbody.data('eles');
+                    // 替换值给当前操作的列
+                    $eles.children().eq(1).text($name.val());
+                    $eles.children().eq(2).text($hobby.val());
+                    $name.val('');
+                    $hobby.val('');
+                    $('.cover,.modal').addClass('hide');
+                    $('tbody').removeData('eles');
+                }
+            });
+            $('#b3').on('click', function () {
+                $name.val('');
+                $hobby.val('');
+                $('.cover,.modal').addClass('hide');
+            });
+            $('#clear').on('click', function () {
+                $('tbody').children().remove();
+            })
+        });
+    </script>
+</head>
+<body>
+<button id="add">新增</button>
+<button id="clear">清空</button>
+<table border="1">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>姓名</th>
+        <th>爱好</th>
+        <th>功能</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>陆远</td>
+        <td>学习</td>
+        <td>
+            <button class="edit">编辑</button>
+            <button class="delete">删除</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="cover hide"></div>
+<div class="modal hide">
+    <form>
+        <div>
+            <label>姓名：
+                <input type="text" id="name">
+                <span></span>
+            </label>
+        </div>
+        <div>
+            <label>爱好：
+                <input type="text" id="hobby">
+                <span></span>
+            </label>
+        </div>
+        <button id="b2" type="button">提交</button>
+        <button id="b3" type="button">取消</button>
+    </form>
+    <script>
+        var $tbody = $('tbody');
+        $tbody.on('click', '.delete', function () {
+            var $Ele = $(this).parent().parent();
+            var $val = $Ele.nextAll().children();
+            $val.first().text($val.first().text() - 1);
+            //将该元素删除
+            $Ele.remove();
+        });
+        $tbody.on('click', '.edit', function () {
+            // 定位当前列
+            var $eles = $(this).parent().parent();
+            $('tbody').data('eles', $eles);
+            $('.cover,.modal').removeClass('hide');
+            var $name = $('#name');
+            var $hobby = $('#hobby');
+            //给模态框内容赋值
+            $name.val($($eles.children()[1]).text());
+            $hobby.val($($eles.children()[2]).text());
+        });
+    </script>
+</div>
+</body>
+</html>
