@@ -2,46 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！-->
     <title>增删改查</title>
-    <style>
-        .hide {
-            display: none;
-        }
-
-        .cover {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 998;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .modal {
-            border: 1px solid red;
-            height: 400px;
-            width: 600px;
-            z-index: 1000;
-            background-color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -200px;
-            margin-left: -300px;
-        }
-    </style>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="jquery-3.4.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
     <script>
         // 页面加载完毕后执行js代码
         $(document).ready(function () {
             var $name = $('#name');
             var $hobby = $('#hobby');
-            var $tbody= $('tbody');
+            var $tbody = $('tbody');
             //新增按钮 将模态框弹出
             $('#add').on('click', function () {
-                type = 0;
-                $('.cover,.modal').removeClass('hide');
+                $('#myModal').modal('show');
             });
             // 提交按钮
             $('#b2').on('click', function () {
@@ -67,8 +47,8 @@
                     $('tbody').append(trEle);
                     $name.val('');
                     $hobby.val('');
-                    $('.cover,.modal').addClass('hide');
-                } else{
+                    $('#myModal').modal('hide');
+                } else {
                     if ($name.val().trim() === '' || $hobby.val().trim() === '') {
                         alert('姓名或爱好不能为空');
                         return false;
@@ -80,14 +60,14 @@
                     $eles.children().eq(2).text($hobby.val());
                     $name.val('');
                     $hobby.val('');
-                    $('.cover,.modal').addClass('hide');
+                    $('#myModal').modal('hide');
                     $('tbody').removeData('eles');
                 }
             });
             $('#b3').on('click', function () {
                 $name.val('');
                 $hobby.val('');
-                $('.cover,.modal').addClass('hide');
+                $('#myModal').modal('hide');
             });
             $('#clear').on('click', function () {
                 $('tbody').children().remove();
@@ -96,47 +76,63 @@
     </script>
 </head>
 <body>
-<button id="add">新增</button>
-<button id="clear">清空</button>
-<table border="1">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>姓名</th>
-        <th>爱好</th>
-        <th>功能</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>1</td>
-        <td>陆远</td>
-        <td>学习</td>
-        <td>
-            <button class="edit">编辑</button>
-            <button class="delete">删除</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<div class="cover hide"></div>
-<div class="modal hide">
-    <form>
-        <div>
-            <label>姓名：
-                <input type="text" id="name">
-                <span></span>
-            </label>
-        </div>
-        <div>
-            <label>爱好：
-                <input type="text" id="hobby">
-                <span></span>
-            </label>
-        </div>
-        <button id="b2" type="button">提交</button>
-        <button id="b3" type="button">取消</button>
-    </form>
+
+<div class="container-fluid">
+    <button id="add">新增</button>
+    <button id="clear">清空</button>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>姓名</th>
+            <th>爱好</th>
+            <th>功能</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>陆远</td>
+            <td>学习</td>
+            <td>
+                <button class="edit">编辑</button>
+                <button class="delete">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">信息</h4>
+      </div>
+      <div class="modal-body">
+          <form>
+              <div class="form-group text-center">
+                  <label>姓名：
+                      <input type="text" class="form-control" id="name">
+                      <span></span>
+                  </label>
+              </div>
+              <div class="form-group text-center">
+                  <label>爱好：
+                      <input type="text" class="form-control" id="hobby">
+                      <span></span>
+                  </label>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button id="b2" type="button" class="btn btn-default" data-dismiss="modal">提交</button>
+        <button id="b3" type="button" class="btn btn-primary">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
     <script>
         var $tbody = $('tbody');
         $tbody.on('click', '.delete', function () {
@@ -150,7 +146,7 @@
             // 定位当前列
             var $eles = $(this).parent().parent();
             $('tbody').data('eles', $eles);
-            $('.cover,.modal').removeClass('hide');
+            $('#myModal').modal('show');
             var $name = $('#name');
             var $hobby = $('#hobby');
             //给模态框内容赋值
@@ -158,6 +154,5 @@
             $hobby.val($($eles.children()[2]).text());
         });
     </script>
-</div>
 </body>
 </html>
