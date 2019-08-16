@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>出版社列表</title>
+    <title>书籍列表</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,17 +61,17 @@
         <!--    左侧下拉框-->
         <div id="mysidebar" class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">出版社列表</a></li>
-                <li class="active"><a href="/add_publisher/">添加出版社</a></li>
-                <li class="active"><a href="/book_list/">书籍列表</a></li>
-                <li class="active"><a href="/add_book/">添加书籍</a></li>
+                <li><a href="/publisher_list/">出版社列表</a></li>
+                <li><a href="/add_publisher/">添加出版社</a></li>
+                <li class="active"><a href="#">书籍列表</a></li>
+                <li><a href="/add_book/">添加书籍</a></li>
             </ul>
         </div>
         <!--    左侧下拉框-->
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <!--            页头-->
             <div class="page-header">
-                <h1>出版社列表
+                <h1>书籍列表
                 </h1>
             </div>
             <!--            页尾-->
@@ -104,20 +104,20 @@
                                 <tr>
                                     <th>#</th>
                                     <th>id</th>
+                                    <th>书名</th>
                                     <th>出版社</th>
-                                    <th>地址</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for publisher in publisher_list%}
+                                {% for book in all_book_list %}
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
-                                        <td>{{ publisher.id }}</td>
-                                        <td>{{ publisher.name }}</td>
-                                        <td>{{ publisher.addr }}</td>
-                                        <td><a class="btn btn-danger" href="/delete_publisher/?id={{ publisher.id }}">删除</a>
-                                        <a class="btn btn-success" href="/edit_publisher/?id={{ publisher.id }}">编辑</a></td>
+                                        <td>{{ book.id }}</td>
+                                        <td>{{ book.title }}</td>
+                                        <td>{{ book.publisher.name }}</td>
+                                        <td><a class="btn btn-danger" href="/delete_book/?id={{ book.id }}">删除</a>
+                                            <a class="btn btn-success" href="/edit_book/?id={{ book.id }}">编辑</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -152,20 +152,24 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">添加出版社</h4>
+                            <h4 class="modal-title">添加书籍</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" action="/add_publisher/" method="post">
-                                <div class="form-group">
-                                    <label for="publisher" class="col-sm-3 control-label">出版社</label>
+                            <form class="form-horizontal" action="/add_book/" method="post">
+                            <div class="form-group">
+                                    <label for="book_title" class="col-sm-3 control-label">书名</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="publisher" name="publisher" placeholder="出版社">
+                                        <input type="text" class="form-control" id="book_title" name="book_title" placeholder="书名">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="addr" class="col-sm-3 control-label">出版社</label>
+                                    <label for="publisher" class="col-sm-3 control-label" name="publisher">出版社</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="addr" name="addr" placeholder="地址">
+                                        <select class="form-control" id="publisher" name="publisher">
+                                            {% for p in all_publisher_list %}
+                                                <option value="{{ p.id }}">{{ p.name }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right">提交</button>

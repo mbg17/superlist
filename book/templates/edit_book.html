@@ -19,21 +19,29 @@
 <body>
 <div class="container col-sm-offset-3 col-sm-6">
     <div class="panel panel-default ">
-        <div class="panel-heading">添加出版社</div>
+        <div class="panel-heading">添加书籍</div>
         <div class="panel-body">
-            <form action="/add_publisher/" method="post">
+            <form action="/edit_book/" method="post">
+            <input type="hidden" name="id" value="{{ book_obj.id }}">
                 <div class="form-group">
-                    <label for="name">出版社：</label>
-                    <input type="text" class="form-control" id="publisher" name="publisher" placeholder="出版社">
+                    <label for="title">书名：</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="书名" value="{{ book_obj.title }}">
                 </div>
                 <div class="form-group">
-                    <label for="addr">地址：</label>
-                    <input type="text" class="form-control" id="addr" name="addr" placeholder="地址"">
+                    <label for="publisher">出版社：</label>
+                    <select name="publisher" class="form-control" id="publisher">
+                        {% for p in publisher %}
+                            {% if book.publisher.id == p.id %}
+                                <option selected value="{{ p.id }}">{{ p.name }}</option>
+                            {% else %}
+                                <option value="{{ p.id }}">{{ p.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-success">提交</button>
             </form>
         </div>
-        <p class="text-center">{{ error }}</p>
     </div>
 </div>
 <script src="/static/jquery-3.4.1.min.js"></script>
