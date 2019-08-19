@@ -1,19 +1,19 @@
 {% extends 'add.html' %}
-{% block title %}添加书籍{% endblock %}
+{% block title %}添加作者{% endblock %}
 {% block page %}
     <div class="panel panel-default ">
         <div class="panel-heading">添加书籍</div>
         <div class="panel-body">
-            <form action="/add_book/" method="post">
+            <form action="/add_author/" method="post">
                 <div class="form-group">
-                    <label for="book_title">书名：</label>
-                    <input type="text" class="form-control" id="book_title" name="book_title" placeholder="书名">
+                    <label for="author_name">作者：</label>
+                    <input type="text" class="form-control" id="author_name" name="author_name" placeholder="作者">
                 </div>
                 <div class="form-group">
-                    <label for="publisher">出版社：</label>
-                    <select class="form-control" id="publisher" name="publisher">
-                        {% for p in all_publisher %}
-                            <option value="{{ p.id }}">{{ p.name }}</option>
+                    <label for="books">书籍：</label>
+                    <select multiple class="form-control" id="books" name="books">
+                        {% for book in book_list %}
+                            <option value="{{ book.id }}">{{ book.title }}</option>
                         {% endfor %}
                     </select>
                 </div>

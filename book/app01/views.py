@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponse
 
 # Create your views here.
-from .models import Publisher,Book
+from .models import Publisher,Book,Author
 
 def publisher_list(request):
     ret = Publisher.objects.all().order_by('id')
@@ -26,7 +26,7 @@ def delete_publisher(request):
         ret.delete()
         return redirect('/publisher_list/')
     else:
-        return HttpResponse('删除对象不存在！')
+        return HttpResponse('删除的出版社不存在！')
 
 def edit_publisher(request):
     if request.method=='POST':
@@ -95,3 +95,59 @@ def edit_book(request):
     book_obj = Book.objects.get(id=book_id)
     publisher_list = Publisher.objects.all()
     return render(request,'edit_book.html',{'publisher':publisher_list,'book_obj':book_obj})
+
+def author_list(request):
+    book_list = Book.objects.all()
+    all_author = Author.objects.all()
+    return render(request,'author_list.html',{'author_list':all_author,'book_list':book_list})
+
+def delete_author(request):
+    delete_id = request.GET.get('id',None)
+    if delete_id and delete_id is not None:
+        ret = Author.objects.filter(id=delete_id)
+        if ret:
+            Author.objects.get(id=delete_id).delete()
+            return redirect('/author_list/')
+        else:
+            return HttpResponse('删除的用户不存在')
+    return HttpResponse('删除的对象不能为空')
+
+def add_author(request):
+    error = ''
+    book_list = Book.objects.all()
+    if request.method == 'POST':
+        books = request.POST.getlist('books')
+        new_author = request.POST.get('author_name')
+        if new_author:
+            filter = Author.objects.filter(name=new_author)
+            if filter:
+                error = '添加的作者已存在'
+            else:
+                new_author_obj = Author.objects.create(name=new_author)
+                # 把书和作者创建对应关系
+                new_author_obj.book.set(books)
+                return redirect('/author_list/')
+        else:
+            error = '添加的作者不能为空'
+    return render(request,'add_author.html',{'book_list':book_list,'error':error})
+
+def edit_author(request):
+    if request.method == 'POST':
+        new_author_id = request.POST.get('id')
+        ret = Author.objects.filter(id=new_author_id)
+        if ret:
+            new_author_name =request.POST.get('author_name')
+            # 获取多选框所有数据
+            new_book_list = request.POST.getlist('books')
+            new_author_obj = Author.objects.get(id=new_author_id)
+            new_author_obj.name = new_author_name
+            new_author_obj.book.set(new_book_list)
+            new_author_obj.save()
+            return redirect('/author_list/')
+    book_list = Book.objects.all()
+    get_id = request.GET.get('id')
+    author = Author.objects.filter(id = get_id)
+    if author:
+        author = Author.objects.get(id = get_id)
+        return render(request, 'edit_author.html', {'author': author, 'book_list': book_list})
+    return redirect('/author_list/')

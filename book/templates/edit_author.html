@@ -1,0 +1,30 @@
+{% extends 'add.html' %}
+{% block title %}编辑作者{% endblock %}
+{% block page %}
+    <div class="panel panel-default ">
+        <div class="panel-heading">编辑作者</div>
+        <div class="panel-body">
+            <form action="/edit_author/" method="post">
+                <input type="hidden" name="id" value="{{ author.id }}">
+                <div class="form-group">
+                    <label for="author_name">作者：</label>
+                    <input type="text" class="form-control" id="author_name" name="author_name" placeholder="作者"
+                           value="{{ author.name }}">
+                </div>
+                <div class="form-group">
+                    <label for="books">书籍：</label>
+                    <select multiple name="books" class="form-control" id="books">
+                        {% for book in book_list %}
+                            {% if book in author.book.all %}
+                                <option selected value="{{ book.id }}">{{ book.title }}</option>
+                            {% else %}
+                                <option value="{{ book.id }}">{{ book.title }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">提交</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

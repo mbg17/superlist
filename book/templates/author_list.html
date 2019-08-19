@@ -1,0 +1,69 @@
+{% extends 'list.html' %}
+{% block links %}
+    <li><a href="/publisher_list/">出版社列表</a></li>
+    <li><a href="/add_publisher/">添加出版社</a></li>
+    <li><a href="/book_list/">书籍列表</a></li>
+    <li><a href="/add_book/">添加书籍</a></li>
+    <li class="list-group-item-info active"><a class="active" href="/author_list/">作者列表</a></li>
+    <li><a href="/add_author/">添加作者</a></li>
+{% endblock %}
+{% block panel_title %}作者列表{% endblock %}
+{% block mytable %}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>id</th>
+            <th>作者</th>
+            <th>书籍</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for author in author_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ author.id }}</td>
+                <td>{{ author.name }}</td>
+                <td>
+                    {% for book in  author.book.all %}
+                        {% if forloop.last %}
+                            {{ book.title }}
+                        {% else %}
+                            {{ book.title }},
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td><a class="btn btn-danger"
+                       href="/delete_author/?id={{ author.id }}">删除</a>
+                    <a class="btn btn-success"
+                       href="/edit_author/?id={{ author.id }}">编辑</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block form_modal_title %}添加作者{% endblock %}
+{% block form_modal %}
+    <form class="form-horizontal" action="/add_author/" method="post">
+        <div class="form-group">
+            <label for="author_name" class="col-sm-3 control-label">作者</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="author_name" name="author_name"
+                       placeholder="书名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="books" class="col-sm-3 control-label">书籍</label>
+            <div class="col-sm-9">
+                <select multiple class="form-control" id="books" name="books">
+                    {% for book in book_list %}
+                        <option value="{{ book.id }}">{{ book.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary pull-right">提交</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    </form>
+{% endblock %}
