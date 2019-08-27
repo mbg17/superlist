@@ -4,7 +4,7 @@
     <div class="panel panel-default ">
         <div class="panel-heading">编辑作者</div>
         <div class="panel-body">
-            <form action="/edit_author/" method="post">
+            <form action="{% url 'edit_author' author.id %}" method="post">
                 <input type="hidden" name="id" value="{{ author.id }}">
                 <div class="form-group">
                     <label for="author_name">作者：</label>

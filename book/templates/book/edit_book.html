@@ -4,7 +4,7 @@
     <div class="panel panel-default ">
         <div class="panel-heading">编辑书本</div>
         <div class="panel-body">
-            <form action="/edit_book/" method="post">
+            <form action="{% url 'edit_book' book_obj.id %}" method="post">
                 <input type="hidden" name="id" value="{{ book_obj.id }}">
                 <div class="form-group">
                     <label for="title">书名：</label>

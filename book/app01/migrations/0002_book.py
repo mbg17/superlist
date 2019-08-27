@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('title', models.CharField(max_length=64, unique=True)),
-                ('publisher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app01.Publisher')),
+                ('publisher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='book_list.Publisher')),
             ],
         ),
     ]

@@ -1,11 +1,11 @@
 {% extends 'list.html' %}
 {% block links %}
-    <li><a href="/publisher_list/">出版社列表</a></li>
-    <li><a href="/add_publisher/">添加出版社</a></li>
-    <li class="list-group-item-info active"><a class="active" href="#">书籍列表</a></li>
-    <li><a href="/add_book/">添加书籍</a></li>
-    <li><a href="/author_list/">作者列表</a></li>
-    <li><a href="/add_author/">添加作者</a></li>
+    <li><a href="{% url 'publisher_list' %}">出版社列表</a></li>
+    <li><a href="{% url 'add_publisher' %}">添加出版社</a></li>
+    <li class="list-group-item-info active"><a class="active" href="{% url 'book_list' %}">书籍列表</a></li>
+    <li><a href="{% url 'add_book' %}">添加书籍</a></li>
+    <li><a href="{% url 'author_list' %}">作者列表</a></li>
+    <li><a href="{% url 'add_author' %}">添加作者</a></li>
 {% endblock %}
 {% block panel_title %}书籍列表{% endblock %}
 {% block mytable %}
@@ -26,8 +26,8 @@
                 <td>{{ book.id }}</td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.publisher.name }}</td>
-                <td><a class="btn btn-danger" href="/delete_book/?id={{ book.id }}">删除</a>
-                    <a class="btn btn-success" href="/edit_book/?id={{ book.id }}">编辑</a></td>
+                <td><a class="btn btn-danger" href="{% url 'delete_book' book.id %}">删除</a>
+                    <a class="btn btn-success" href="{% url 'edit_book' book.id %}">编辑</a></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -35,7 +35,7 @@
 {% endblock %}
 {% block form_modal_title %}添加书籍{% endblock %}
 {% block form_modal %}
-    <form class="form-horizontal" action="/add_book/" method="post">
+    <form class="form-horizontal" action="{% url 'add_book' %}" method="post">
         <div class="form-group">
             <label for="book_title" class="col-sm-3 control-label">书名</label>
             <div class="col-sm-9">

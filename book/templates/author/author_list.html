@@ -1,11 +1,11 @@
 {% extends 'list.html' %}
 {% block links %}
-    <li><a href="/publisher_list/">出版社列表</a></li>
-    <li><a href="/add_publisher/">添加出版社</a></li>
-    <li><a href="/book_list/">书籍列表</a></li>
-    <li><a href="/add_book/">添加书籍</a></li>
-    <li class="list-group-item-info active"><a class="active" href="/author_list/">作者列表</a></li>
-    <li><a href="/add_author/">添加作者</a></li>
+    <li><a href="{% url 'publisher_list' %}">出版社列表</a></li>
+    <li><a href="{% url 'add_publisher' %}">添加出版社</a></li>
+    <li><a href="{% url 'book_list' %}">书籍列表</a></li>
+    <li><a href="{% url 'add_book' %}">添加书籍</a></li>
+    <li class="list-group-item-info active"><a class="active" href="{% url 'author_list' %}">作者列表</a></li>
+    <li><a href="{% url 'add_author' %}">添加作者</a></li>
 {% endblock %}
 {% block panel_title %}作者列表{% endblock %}
 {% block mytable %}
@@ -35,9 +35,9 @@
                     {% endfor %}
                 </td>
                 <td><a class="btn btn-danger"
-                       href="/delete_author/?id={{ author.id }}">删除</a>
+                       href="{% url 'delete_author' author.id %}">删除</a>
                     <a class="btn btn-success"
-                       href="/edit_author/?id={{ author.id }}">编辑</a></td>
+                       href="{% url 'edit_author' author.id %}">编辑</a></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -45,7 +45,7 @@
 {% endblock %}
 {% block form_modal_title %}添加作者{% endblock %}
 {% block form_modal %}
-    <form class="form-horizontal" action="/add_author/" method="post">
+    <form class="form-horizontal" action="{% url 'add_author' %}" method="post">
         <div class="form-group">
             <label for="author_name" class="col-sm-3 control-label">作者</label>
             <div class="col-sm-9">

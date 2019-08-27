@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=16)),
-                ('book', models.ManyToManyField(to='app01.Book')),
+                ('book', models.ManyToManyField(to='book_list.Book')),
             ],
         ),
     ]
