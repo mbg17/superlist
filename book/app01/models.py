@@ -31,6 +31,11 @@ class Author(models.Model):
     name = models.CharField(max_length=16,null=False,unique=True)
     # 多对多关系 创建第三张中间表 存的是具体书的对象
     book = models.ManyToManyField(Book)
+    detail = models.OneToOneField(to='AuthorDetail',on_delete=models.CASCADE)
 
     def __str__(self):
         return f'<{self.name}>'
+
+class AuthorDetail(models.Model):
+    hobby = models.CharField(max_length=32)
+    addr = models.CharField(max_length=12)

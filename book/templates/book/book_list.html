@@ -1,5 +1,6 @@
 {% extends 'list.html' %}
 {% block links %}
+    {# 反向解析url #}
     <li><a href="{% url 'publisher_list' %}">出版社列表</a></li>
     <li><a href="{% url 'add_publisher' %}">添加出版社</a></li>
     <li class="list-group-item-info active"><a class="active" href="{% url 'book_list' %}">书籍列表</a></li>
