@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponse
 
 # Create your views here.
-from .models import Book,Author
+from .models import Book,Author,AuthorDetail
 
 def author_list(request):
     book_list = Book.objects.all()
@@ -22,17 +22,23 @@ def add_author(request):
     error = ''
     book_list = Book.objects.all()
     if request.method == 'POST':
-        books = request.POST.getlist('books')
-        new_author = request.POST.get('author_name')
+        books = request.POST.getlist('books',None)
+        new_author = request.POST.get('author_name',None)
+        hobby =request.POST.get('hobby',None)
+        addr = request.POST.get('addr',None)
         if new_author:
             filter = Author.objects.filter(name=new_author)
             if filter:
                 error = '添加的作者已存在'
             else:
-                new_author_obj = Author.objects.create(name=new_author)
+                if hobby and addr:
+                    detail = AuthorDetail.objects.create(hobby=hobby,addr=addr)
+                    new_author_obj = Author.objects.create(name=new_author,detail=detail)
                 # 把书和作者创建对应关系
-                new_author_obj.book.set(books)
-                return redirect('/author_list/')
+                    new_author_obj.book.set(books)
+                    return redirect('/author_list/')
+                else:
+                    error = '地址或者爱好不能为空'
         else:
             error = '添加的作者不能为空'
     return render(request, 'author/add_author.html', {'book_list':book_list, 'error':error})
@@ -44,9 +50,16 @@ def edit_author(request,id):
             new_author_name =request.POST.get('author_name')
             # 获取多选框所有数据
             new_book_list = request.POST.getlist('books')
+            new_hobby = request.POST.get('hobby')
+            new_addr = request.POST.get('addr')
             new_author_obj = Author.objects.get(id=id)
+            new_detail_obj = new_author_obj.detail
+            print(new_detail_obj)
             new_author_obj.name = new_author_name
             new_author_obj.book.set(new_book_list)
+            new_detail_obj.hobby = new_hobby
+            new_detail_obj.addr = new_addr
+            new_detail_obj.save()
             new_author_obj.save()
             return redirect('/author_list/')
     book_list = Book.objects.all()

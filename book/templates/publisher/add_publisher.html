@@ -4,7 +4,7 @@
     <div class="panel panel-default ">
         <div class="panel-heading">添加出版社</div>
         <div class="panel-body">
-            <form action="/publisher_list/add_publisher/" method="post">
+            <form action="{% url 'add_publisher' %}" method="post">
                 <div class="form-group">
                     <label for="name">出版社：</label>
                     <input type="text" class="form-control" id="publisher" name="publisher" placeholder="出版社">

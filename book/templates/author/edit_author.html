@@ -23,6 +23,16 @@
                         {% endfor %}
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="hobby">爱好：</label>
+                    <input type="text" class="form-control" id="hobby" name="hobby" placeholder="爱好"
+                           value="{{ author.detail.hobby }}">
+                </div>
+                <div class="form-group">
+                    <label for="addr">地址：</label>
+                    <input type="text" class="form-control" id="addr" name="addr" placeholder="地址"
+                           value="{{ author.detail.addr }}">
+                </div>
                 <button type="submit" class="btn btn-success">提交</button>
             </form>
         </div>

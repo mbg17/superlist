@@ -1,4 +1,5 @@
 {% extends 'list.html' %}
+{% block title %}出版社列表{% endblock %}
 {% block links %}
     <li class="list-group-item-info active"><a class="active" href="{% url 'publisher_list' %}">出版社列表</a></li>
     <li><a href="{% url 'add_publisher' %}">添加出版社</a></li>

@@ -1,4 +1,5 @@
 {% extends 'list.html' %}
+{% block title %}作者列表{% endblock %}
 {% block links %}
     <li><a href="{% url 'publisher_list' %}">出版社列表</a></li>
     <li><a href="{% url 'add_publisher' %}">添加出版社</a></li>
@@ -16,6 +17,8 @@
             <th>id</th>
             <th>作者</th>
             <th>书籍</th>
+            <th>爱好</th>
+            <th>地址</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -33,6 +36,12 @@
                             {{ book.title }},
                         {% endif %}
                     {% endfor %}
+                </td>
+                <td>
+                    {{ author.detail.hobby }}
+                </td>
+                <td>
+                    {{ author.detail.addr }}
                 </td>
                 <td><a class="btn btn-danger"
                        href="{% url 'delete_author' author.id %}">删除</a>
@@ -61,6 +70,18 @@
                         <option value="{{ book.id }}">{{ book.title }}</option>
                     {% endfor %}
                 </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hobby" class="col-sm-3 control-label">爱好：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="hobby" name="hobby" placeholder="爱好">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="addr" class="col-sm-3 control-label">地址：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="addr" name="addr" placeholder="地址">
             </div>
         </div>
         <button type="submit" class="btn btn-primary pull-right">提交</button>
