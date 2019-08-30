@@ -13,7 +13,8 @@
 </head>
 <body>
 <a href="/add_user/">添加用户</a>
-<table border="1">
+<div class="container">
+    <table class="table" border="1">
     <thead>
     <tr>
         <th>序号</th>
@@ -29,6 +30,12 @@
     {% endfor %}
     </tbody>
 </table>
+<nav aria-label="Page navigation" class="text-center">
+  <ul class="pagination">
+      {{ page_list|safe }}
+  </ul>
+</nav>
+</div>
 <script src="/static/jquery-3.4.1.min.js"></script>
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 </body>
