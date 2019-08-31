@@ -32,7 +32,9 @@
 </table>
 <nav aria-label="Page navigation" class="text-center">
   <ul class="pagination">
+      <li><a href="{% url 'user_list' %}?page=1">首页</a></li>
       {{ page_list|safe }}
+      <li><a href="{% url 'user_list' %}?page={{ all_page }}">尾页</a></li>
   </ul>
 </nav>
 </div>
