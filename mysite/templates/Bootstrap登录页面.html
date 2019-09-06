@@ -10,33 +10,49 @@
     <!-- Bootstrap -->
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body{
+        body {
             background-color: #e2e2e2;
         }
-        .login-box{
+
+        .login-box {
             margin-top: 150px;
         }
-        .hide{
+
+        .hide {
             display: none;
         }
     </style>
 </head>
 <body>
 <div class="container login-box">
-{#    request.get_full_path 获取全路径#}
-    <form class="col-md-4 col-md-offset-4" action="{{ request.get_full_path }}" method="post">
+    {#    request.get_full_path 获取全路径#}
+    <form class="col-md-4 col-md-offset-4" action="{{ request.get_full_path }}" method="post" novalidate>
+        {% csrf_token %}
         <h3 class="text-center">登录</h3>
         <div class="form-group">
-            <label for="exampleInputEmail1">邮箱</label>
-            <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email">
+            {#            <label for="exampleInputEmail1">邮箱</label>#}
+            {#            <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email">#}
+            {{ form_obj.email.label }}
+            {{ form_obj.email }}
         </div>
-        <label id='l1' class="control-label text-danger hide" for="exampleInputEmail1"><small>请输入邮箱</small></label>
+        <label id='l1' class="control-label text-danger hide" for="exampleInputEmail1">
+            <small id="error"></small>
+        </label>
+        <label id='l4' class="control-label text-danger" for="exampleInputEmail1">
+            <small id="error">{{ form_obj.errors.email }}</small>
+        </label>
         <div class="form-group">
-            <label for="exampleInputPassword1">密码</label>
-            <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
+            {#            <label for="exampleInputPassword1">密码</label>#}
+            {#            <input type="password" class="form-control" name="password" id="exampleInputPassword1"#}
+            {#                   placeholder="Password">#}
+            {{ form_obj.password.label }}
+            {{ form_obj.password }}
         </div>
-        <label id='l2' class="control-label text-danger hide" for="exampleInputPassword1"><small>请输入密码</small></label>
-        <span id="helpBlock2" class="help-block hide">密码长度不能小于8位</span>
+        <label id='l2' class="control-label text-danger {% if form_obj.password.errors %}{% else %}hide{% endif %}"
+               for="exampleInputPassword1">
+            <small id="error"> {{ form_obj.errors.password }}</small>
+        </label>
+        <span id="helpBlock2" class="help-block hide"></span>
         <div class="checkbox">
             <label>
                 <input type="checkbox"> 记住我
@@ -51,32 +67,46 @@
 <script>
     var $email = $('#exampleInputEmail1');
     var $password = $('#exampleInputPassword1');
-    $email.on('focus',function () {
-        if($email.val().trim()===''){
-            $('#l1').removeClass('hide');
+    $email.on('focus', function () {
+        $('#l1').addClass('hide');
+        $("#l1 #error").text('');
+    });
+    {#$("#l1 #error").text('haha')#}
+    $email.on('blur', function () {
+        var $user = $email.val();
+        if ($user.trim() !== "") {
+            {#    $('#l1').removeClass('hide');#}
+            {#    $("#l1 #error").text('用户名不能为空！');#}
+            //} else {
+            $.ajax(
+                {
+                    url: "/check/",
+                    type: "POST",
+                    data: {"user": $user, "csrfmiddlewaretoken": $("[name = 'csrfmiddlewaretoken']").val()},
+                    success: function (arg) {
+                        if (arg === '用户名已存在') {
+                            $('#l1').removeClass('hide');
+                            $("#l1 #error").text('用户名已存在！');
+                        } else {
+                            $('#l1').removeClass('hide');
+                            $("#l1 #error").text(arg);
+                        }
+                    }
+                }
+            )
         }
     });
-    $email.on('blur',function () {
-        if($email.val().trim()!=='') {
-            $('#l1').addClass('hide');
-        }
-    });
-    $password.on('focus',function () {
-        if($password.val().trim()==='') {
-            $('#l2').removeClass('hide');
-        }
-    });
-    $password.on('blur',function () {
-        if($password.val().trim()!=='') {
+    $password.on('blur', function () {
+        if ($password.val().trim() !== '') {
             $('#l2').addClass('hide');
         }
     });
-    $('#login').on('click',function () {
-        var $error_msg=$('#error').text('');
-        if($password.val().trim().length<8 || $email.val().trim()==='' ){
+    $('#login').on('click', function () {
+        var $error_msg = $('#error').text('');
+        if ($password.val().trim().length < 8 || $email.val().trim() === '') {
             $('#helpBlock2').removeClass('hide');
             return false;
-        }else{
+        } else {
             $('#helpBlock2').addClass('hide');
         }
     });

@@ -8,12 +8,13 @@ def author_list(request):
     all_author = Author.objects.all()
     return render(request, 'author/author_list.html', {'author_list':all_author, 'book_list':book_list})
 
-def delete_author(request,delete_id):
+def delete_author(request):
+    delete_id = request.POST.get('id')
     if delete_id and delete_id is not None:
         ret = Author.objects.filter(id=delete_id)
         if ret:
             Author.objects.get(id=delete_id).delete()
-            return redirect('/author_list/')
+            return HttpResponse('删除成功')
         else:
             return HttpResponse('删除的用户不存在')
     return HttpResponse('删除的对象不能为空')

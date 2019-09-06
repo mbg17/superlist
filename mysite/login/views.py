@@ -1,6 +1,7 @@
 from django.shortcuts import HttpResponse, render, redirect
 from login import models
 from functools import wraps
+from .forms import loginForm
 # Create your views here.
 def check_login(func):
     @wraps(func)
@@ -16,7 +17,10 @@ def check_login(func):
 
 def login(request):
     error_msg = ''
+    form_obj= loginForm()
     if request.method == 'POST':
+        form_obj = loginForm(request.POST)
+        print(form_obj.errors)
         email = request.POST.get('email', None)
         password = request.POST.get('password', None)
         next = request.GET.get('next')
@@ -29,7 +33,7 @@ def login(request):
             return ret
         else:
             error_msg = '登录失败'
-    return render(request, 'Bootstrap登录页面.html', {'error_msg': error_msg})
+    return render(request, 'Bootstrap登录页面.html', {'error_msg': error_msg,'form_obj':form_obj})
 
 @check_login
 def user_list(request):
@@ -92,3 +96,19 @@ def add_user(request):
         models.UserInfo.objects.create(name=new_name)
         return redirect('/user_list/')
     return render(request,'add_user.html')
+
+def check(request):
+    user = request.POST.get('user')
+    ret = models.UserInfo.objects.filter(name=user)
+    print(ret)
+    if ret:
+        return HttpResponse('用户名已存在')
+    else:
+        return HttpResponse('通过验证')
+
+def form_test(request):
+    form_ = loginForm()
+    if request.method == 'POST':
+        form_ = loginForm(request.POST)
+        print(form_.errors)
+    return render(request,'form_test.html',{'form_obj':form_})
