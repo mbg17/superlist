@@ -8,3 +8,4 @@ from django.db import models
 class UserInfo(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(null=False,max_length=20)
+

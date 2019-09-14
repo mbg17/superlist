@@ -39,3 +39,9 @@ class Author(models.Model):
 class AuthorDetail(models.Model):
     hobby = models.CharField(max_length=32)
     addr = models.CharField(max_length=12)
+
+
+class Test(models.Model):
+    id = models.AutoField(primary_key=True)
+    text = models.CharField(max_length=20,null=True)
+    pid = models.ForeignKey('self',on_delete=models.CASCADE,null=True)

@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-
+from login import models
 
 class loginForm(forms.Form):
     email = forms.CharField(
@@ -46,6 +46,20 @@ class loginForm(forms.Form):
             'max_length': '长度不能超过16位',
         }
     )
+
+    # 单选框
+    users = forms.ChoiceField(
+        widget=forms.Select(attrs={
+            'class': "form-control",
+            'id': "choice"})
+    )
+
+    #从数据库动态取值
+    def __init__(self,*args,**kargs):
+        super().__init__(*args,**kargs)
+        # self.fields 当前模型所有的字段
+        self.fields['users'].choices = models.UserInfo.objects.all().values_list('id','name')
+
 
     def clean_email(self):
         email = self.cleaned_data['email']

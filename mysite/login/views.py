@@ -1,4 +1,5 @@
 from django.shortcuts import HttpResponse, render, redirect
+from django.contrib import auth
 from login import models
 from functools import wraps
 from .forms import loginForm
@@ -14,7 +15,7 @@ def check_login(func):
             next = request.path_info
             return redirect(f'/login/?next={next}')
     return inner
-
+# python manager.py createsuperuser 创建超级用户
 def login(request):
     error_msg = ''
     form_obj= loginForm()
@@ -24,7 +25,11 @@ def login(request):
         email = request.POST.get('email', None)
         password = request.POST.get('password', None)
         next = request.GET.get('next')
-        if email == 'luyuan@qq.com' and password == '12345678':
+        # 校验用户名和密码
+        user = auth.authenticate(username = email,password=password)
+        if user:
+            # 登录用户 可以从request.user取到相应的值
+            auth.login(request,user)
             if next:
                 ret = redirect(next)
             else:
@@ -35,7 +40,7 @@ def login(request):
             error_msg = '登录失败'
     return render(request, 'Bootstrap登录页面.html', {'error_msg': error_msg,'form_obj':form_obj})
 
-@check_login
+
 def user_list(request):
     # 每一页数据
     per_page = 10
@@ -89,7 +94,6 @@ def user_list(request):
                                               'page_list': page.page_html(),
                                               'all_page':page.all_page})
 
-@check_login
 def add_user(request):
     if request.method == 'POST':
         new_name = request.POST.get('username', None)

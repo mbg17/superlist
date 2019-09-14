@@ -43,6 +43,16 @@
                for="exampleInputPassword1">
             <small id="error"> {{ form_obj.errors.re_pwd }}</small>
         </label>
+
+        <div class="form-group">
+            {{ form_obj.users.label }}
+            {{ form_obj.users }}
+        </div>
+        <label id='l2' class="control-label text-danger {% if form_obj.users.errors %}{% else %}hide{% endif %}"
+               for="exampleInputPassword1">
+            <small id="error"> {{ form_obj.users.re_pwd }}</small>
+        </label>
+
         <span id="helpBlock2" class="help-block hide"></span>
         <button id="login" type="submit" class="btn btn-primary btn-block">登录</button>
     </form>
