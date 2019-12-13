@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}模板{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        .header{
+            width: 100%;
+            height: 60px;
+            background-color: pink;
+        }
+        .menu{
+            background-color: purple ;
+            position: fixed;
+            width: 200px;
+            top: 60px;
+            left: 0;
+            bottom: 0;
+        }
+        .menu a{
+            color: white;
+        }
+        .content{
+            position: fixed;
+            width: 100%;
+            top: 60px;
+            left: 200px;
+            bottom: 0;
+            right: 0;
+            overflow: auto;
+            padding: 30px;
+        }
+        .menu-btn{
+            padding:30px 0;
+            font-size: 18px;
+        }
+    </style>
+{% block mycss %}
+{% endblock %}
+
+</head>
+<body>
+<div class="header">{% block header %}{% endblock %}</div>
+<div class="container-fluid">
+    <div class="menu">
+        {% load mytags %}
+        {% get_menu request %}
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+<script src="/static/jquery-3.4.1.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

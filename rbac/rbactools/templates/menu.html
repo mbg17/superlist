@@ -1,0 +1,5 @@
+{% for menu in permission_menu %}
+    {% if menu.permissions__action == 'list' %}
+        <p class="text-center menu-btn"><a href="{{ menu.permissions__url }}">{{ menu.permissions__title }}</a></p>
+    {% endif %}
+{% endfor %}

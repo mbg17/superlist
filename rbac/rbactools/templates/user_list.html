@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}用户列表{% endblock %}
+{% block header %}{{ user }}{% endblock %}
+{% block content %}
+    {% load mytags %}
+    {% if 'add'|check_permission:request.action %}
+        <a href="" class="btn btn-primary">添加用户</a>
+    {% endif %}
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>用户</th>
+            <th>角色</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in user_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ user.username }}</td>
+                <td>{% for role in user.roles.all %}
+                    {{ role }}
+                {% endfor %}</td>
+                <td>
+                    {% if 'del'|check_permission:request.action %}
+                        <a href="" class="btn btn-danger">删除</a>
+                    {% endif %}
+                    {% if 'edit'|check_permission:request.action %}
+                        <a href="" class="btn btn-warning">编辑</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

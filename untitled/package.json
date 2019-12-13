@@ -1,0 +1,157 @@
+{
+  "log": {
+    "access": "",
+    "error": "",
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "port": 10808,
+      "listen": "0.0.0.0",
+      "protocol": "socks",
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "ip": null,
+        "clients": null
+      },
+      "streamSettings": null
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "cn2.speedss.xyz",
+            "port": 443,
+            "users": [
+              {
+                "id": "97a95442-d855-4bc4-1d65-d56209811046",
+                "alterId": 0,
+                "email": "t@t.tt",
+                "security": "auto"
+              }
+            ]
+          }
+        ],
+        "servers": null,
+        "response": null
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": null
+        },
+        "tcpSettings": null,
+        "kcpSettings": null,
+        "wsSettings": {
+          "connectionReuse": true,
+          "path": "/v2ray/",
+          "headers": null
+        },
+        "httpSettings": null,
+        "quicSettings": null
+      },
+      "mux": {
+        "enabled": false
+      },
+      "inboundDetour": [
+        {
+          "port": "1099",
+          "listen": "0.0.0.0",
+          "protocol": "dokodemo-door",
+          "settings": {
+            "network": "tcp,udp",
+            "timeout": 300,
+            "followRedirect": true
+          }
+        }
+      ]
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {
+        "vnext": null,
+        "servers": null,
+        "response": null
+      },
+      "streamSettings": null,
+      "mux": null
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole",
+      "settings": {
+        "vnext": null,
+        "servers": null,
+        "response": {
+          "type": "http"
+        }
+      },
+      "streamSettings": null,
+      "mux": null
+    }
+  ],
+  "dns": {
+    "servers": [
+      "8.8.8.8",
+      "8.8.4.4",
+      "localhost"
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "port": null,
+        "outboundTag": "direct",
+        "ip": null,
+        "domain": [
+          "speedss.xyz",
+          "speedss.ml"
+        ]
+      },
+      {
+        "type": "field",
+        "port": null,
+        "outboundTag": "direct",
+        "ip": [
+          "geoip:private"
+        ],
+        "domain": null
+      },
+      {
+        "type": "field",
+        "port": null,
+        "outboundTag": "direct",
+        "ip": [
+          "geoip:cn"
+        ],
+        "domain": null
+      },
+      {
+        "type": "field",
+        "port": null,
+        "outboundTag": "direct",
+        "ip": null,
+        "domain": [
+          "geosite:cn"
+        ]
+      }
+    ]
+  }
+}

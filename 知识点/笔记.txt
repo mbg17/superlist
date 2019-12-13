@@ -5,3 +5,19 @@
 3、用在try...except...else...finally语句中，没有异常发生时执行。
 
 4、while/else当while因条件为假而退出(即没有被break中断)时运行else块
+
+
+
+urls('test',([],None,None))
+
+jsonp
+访问接口 返回一个变量 定义一个函数接收数据 解析数据
+<script>
+	function egon(date){
+	alert(date);
+}
+</script>
+<script src='http://127.0.0.1:8000/service/'></script>
+
+def service(request):
+    return Httpresponse('egon('date')')  后台返回的是变量名不是字符串

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改成绩</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h3>录入成绩</h3>
+{% csrf_token %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td>姓名</td>
+                    <td>考情</td>
+                    <td>成绩</td>
+                    <td>评语</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in sobj %}
+                    <tr>
+                        <td>{{ student.student }}</td>
+                        <td>{{ student.get_record_display }}</td>
+                        <td><select name="score" class="change_score" score_id={{ student.pk }}>
+                            {% for score in score_choices %}
+                                <option value="{{ score.0 }}"
+                                        {% if score.1 == student.get_score_display %}selected{% endif %}>{{ score.1 }}</option>
+                            {% endfor %}</select></td>
+                        <td><textarea type="text" col="50" row="30" class="form-control homework_note"
+                                      name="homework_note" class="homework_note" homework_note_id={{ student.pk }}>{{ student.homework_note }}</textarea></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/static/jquery-3.4.1.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $('.change_score').change(function () {
+        var score = $(this).val();
+        var id = $(this).attr('score_id');
+        console.log(score);
+        $.ajax({
+            url: '{{ request.get_full_path }}',
+            type: "post",
+            data: {csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val(), score: score,id:id},
+            error: function (data) {
+                alert(data);
+            }
+        })
+    });
+        $('.homework_note').blur(function () {
+        var homework_note = $(this).val();
+        var id = $(this).attr('homework_note_id');
+        console.log(id);
+        $.ajax({
+            url: '{{ request.get_full_path }}',
+            type: "post",
+            data: {csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val(), homework_note: homework_note,id:id[0]},
+            success: function (data) {
+                console.log('ok');
+            }
+        })
+    })
+
+</script>
+</body>
+</html>
