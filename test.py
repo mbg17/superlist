@@ -1,21 +1,48 @@
-def test():
-    for i in range(10):
-        yield i
+data = [{
+    "asset_id": "2d24ce8afdeea7ba580c4437cb6df624",
+    "item": "013601DB26984CB74BCCD767F1F4BC89",
+    "type": "md5",
+    "handle_state": "0"
+}, {
+    "asset_id": "2381545f4e96625daecbd9baad95b725",
+    "item": "89739BC1E0E1B9E92D47AA38F0C8B1EF",
+    "type": "md5",
+    "handle_state": "0"
+}, {
+    "asset_id": "2d24ce8afdeea7ba580c4437cb6df624",
+    "item": "89739BC1E0E1B9E92D47AA38F0C8B1EF",
+    "type": "md5",
+    "handle_state": "0"
+}]
+def check_data(data):
+    items = []
+    ids = []
+    for d in data:
+        if len(items) == 0:
+            items.append(d['item'])
+            ids.append({d['item']: [d['asset_id']]})
+        else:
+            if d['item'] in items:
+                for i in ids:
+                    if d['item'] in i.keys():
+                        i[d['item']].append(d['asset_id'])
+            else:
+                items.append(d['item'])
+                ids.append({d['item']: [d['asset_id']]})
+    lists = []
+    for i in items:
+        ids2 = []
+        for d in ids:
+            if i in d.keys():
+                ids2 = d[i]
+                break
+        lists.append({
+            "asset_id": ','.join(ids2),
+            "item": i,
+            "type": "md5",
+            "handle_state": "0"
+        })
+    return lists
 
-i = test()
-s=i.__next__()
-print(s)
-for x in i:
-    print(x)
 
-# callable 检查函数是否可调用
-# 可调用返回True 不可调用返回 False
-
-# yield 生成器 惰性调用
-# 可迭代协议 包含__iter__()函数
-# 迭代器包含 __iter__()和__next__()函数
-
-# help() 返回用""""""中的备注
-
-# id 内存地址
-# hash 可哈希不可迭代 不可哈希可迭代
+print(check_data(data))

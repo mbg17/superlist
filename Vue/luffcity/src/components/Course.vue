@@ -8,7 +8,7 @@
     <div v-for="(row,index) in courseList" :key='index'>
       <div style="width: 350px;float: left">
         <img :src="row.course_img" style="width: 350px;height: :350px;"/>
-        <h3><router-link :to="{name:'detail',params:{id:row.id}}">{{row.title}}</router-link></h3>
+        <h3><router-link :to="{name:'detail',params:{id:row.id}}">{{row.id}}-{{row.title}}</router-link></h3>
         <p>{{row.level}}</p>
       </div>
     </div>
@@ -55,6 +55,7 @@
           }
         }).catch(function (ret) {
           // ajax请求失败之后，获取响应的内容
+          console.log(ret);
         })
       }
     }

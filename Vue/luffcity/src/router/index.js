@@ -7,7 +7,7 @@ import Micro from '@/components/Micro'
 import News from '@/components/News'
 import Detail from '@/components/Detail'
 import Login from '@/components/Login'
-
+import Article from '@/components/Article'
 Vue.use(Router)
 
 export default new Router({
@@ -38,6 +38,11 @@ export default new Router({
       path: '/news',
       name: 'news',
       component: News
+    },
+    {
+      path: '/news/:newid',
+      name: 'newsdetail',
+      component:Article
     },
     {
       path: '/login',
