@@ -1,0 +1,31 @@
+>> 本文件内容为 https://tpyxhduat.life.cntaiping.com/hdpt/plt/user/wx/mini/login?h5UserType=4&h5UserCode=730806f8-1ec9-4262-b2a8-3d45b9e101f9 的请求抓包详情，供您分析和定位问题。
+
+1. 请求内容 Request:
+
+GET /hdpt/plt/user/wx/mini/login?h5UserType=4&h5UserCode=730806f8-1ec9-4262-b2a8-3d45b9e101f9 HTTP/1.1
+Host: tpyxhduat.life.cntaiping.com
+Connection: keep-alive
+appId: 130
+content-type: application/json
+code: 0a1MZ5Ga1aUcbH0b2sHa1U9vYV0MZ5Gc
+Accept-Encoding: gzip,compress,br,deflate
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.30(0x18001e32) NetType/WIFI Language/zh_CN
+Referer: https://servicewechat.com/wx8f8ed7116d87aff7/0/page-frame.html
+
+
+
+2. 响应内容 Response:
+
+HTTP/1.1 200 
+Server: ******
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: close
+Date: Thu, 28 Mar 2024 09:19:20 GMT
+X-Application-Context: tpyxhd-api-gateway:uat:9080
+Content-Encoding: gzip
+
+{"code":502,"message":"非太平人寿用户","response":null,"success":false}
+
+====
+该记录由 Stream 抓取，仅用于分析和学习，可 AppStore 搜索『抓包』下载，面向开发者永久免费使用。
