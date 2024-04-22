@@ -1,117 +1,15 @@
-create table hd_reward_record
-(
-    id                          bigint auto_increment
-        primary key,
-    activity_id                 bigint                              null comment '活动id',
-    reward_config_id            bigint                              null comment '奖项配置表id',
-    user_id                     bigint                              not null comment '抽奖人',
-    user_name                   varchar(100)                        null comment '抽奖人姓名',
-    open_id                     varchar(50)                         null comment '小程序openId',
-    user_type                   tinyint                             null,
-    organ_code                  varchar(20)                         null comment '机构码（ms_organ表的custom_code字段）',
-    code                        int                                 null comment '奖项编码',
-    spu_name                    varchar(100)                        null comment '奖项商品名称',
-    value                       varchar(255)                        null comment '奖品类型type对应的值',
-    reward_name                 varchar(30)                         null comment '奖项名称',
-    reward_img                  varchar(255)                        null comment '奖项名称',
-    lottery_level               int(20)                             null comment '中奖等级（抽中的情况下）',
-    origin_introduce_user_id    varchar(100)                        null comment '原始介绍人userId',
-    origin_introduce_code       varchar(100)                        null comment '邮箱或者工号',
-    origin_introduce_agent_cate varchar(20)                         null comment '原始介绍人的条线',
-    link_id                     varchar(50)                         null comment '链路信息',
-    state                       int(4)                              not null comment '中奖状态： 0：未中奖， 1：已中奖',
-    reward_reserve_date         datetime                            null comment '活动中奖预约时间',
-    reward_reserve_time         varchar(32)                         null comment '活动中奖预约时间描述',
-    qrcode                      varchar(100)                        null comment '核销码',
-    `check`                     int(4)                              null comment '核销状态：0或null未核销，1核销',
-    reward_desc                 varchar(100)                        null comment '奖品说明',
-    reward_type                 int(4)    default 1                 null comment '奖品类型',
-    latitude                    varchar(32)                         null comment '用户抽奖时的纬度地址',
-    longitude                   varchar(32)                         null comment '用户抽奖时的经度地址',
-    area_code                   varchar(16)                         null comment '用户抽奖时的地址',
-    created_time                timestamp default CURRENT_TIMESTAMP not null,
-    updated_time                timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP
-)
-    comment '模板活动抽奖记录表';
-
-create table hd_join_record
-(
-    id                       bigint auto_increment
-        primary key,
-    activity_id              varchar(10)                         null comment '活动编码',
-    sessions_id              bigint                              null comment '场次id',
-    joiner_name              varchar(100)                        null comment '参赛人填写姓名',
-    joiner_user_id           bigint                              not null comment '参赛人userId',
-    nick_name                varchar(32)                         null comment '参赛人昵称',
-    head_img                 varchar(255)                        null comment '用户头像',
-    joiner_open_id           varchar(32)                         null comment '参赛人openId',
-    joiner_mini_open_id      varchar(45)                         null comment '用户的小程序唯一标识ID',
-    joiner_union_id          varchar(45)                         null comment 'unionId',
-    mobile                   varchar(15)                         null,
-    link_id                  varchar(50)                         null comment '链路id',
-    introduce_name           varchar(100)                        null comment '介绍人姓名',
-    introduce_user_id        varchar(100)                        null comment '介绍人userId',
-    level                    int(2)                              null comment '第几度人脉',
-    user_type                tinyint   default 1                 null comment 'UserProfile.type',
-    origin_introduce_name    varchar(100)                        null comment '原始介绍人',
-    origin_introduce_user_id varchar(20)                         null comment '原始转介绍人userId',
-    organ_code               varchar(20)                         null comment '原始介绍人机构号',
-    organ_name               varchar(64)                         null comment '原始介绍人机构号',
-    organ_code_2             varchar(64)                         null comment '原始介绍人二级机构号',
-    organ_name_2             varchar(64)                         null comment '原始介绍人二级机构名',
-    address                  varchar(100)                        null comment '地址',
-    area_id                  varchar(16)                         null comment '地址区域id',
-    extend_info              varchar(512)                        null comment '参与活动扩展信息',
-    cert_code                varchar(32)                         null comment '证件号码',
-    custom_id                varchar(50)                         null comment '95589客户号',
-    kf_open_id               varchar(100)                        null comment 'kf openId',
-    other_union_id           varchar(45)                         null comment '其他平台unionId',
-    hh_open_id               varchar(45)                         null comment 'hh openId',
-    other_open_id            varchar(45)                         null comment '其他平台openId',
-    source_id                bigint                              null comment 'sourceId',
-    state                    int(4)                              not null comment '状态： 1：有效， 0：无效',
-    created_time             timestamp default CURRENT_TIMESTAMP not null,
-    latitude                 varchar(32)                         null comment '用户留资时的纬度地址',
-    longitude                varchar(32)                         null comment '用户留资时的经度地址',
-    updated_time             timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
-    gender                   int(4)    default 0                 not null comment '性别：0：未知的性别 1：男性 2：女性 9：未说明的性别',
-    constraint idx_uk
-        unique (activity_id, joiner_user_id)
-)
-    comment '模板活动人员参与信息';
-
-create table hd_reward_record
-(
-    id                          bigint auto_increment
-        primary key,
-    activity_id                 bigint                              null comment '活动id',
-    reward_config_id            bigint                              null comment '奖项配置表id',
-    user_id                     bigint                              not null comment '抽奖人',
-    user_name                   varchar(100)                        null comment '抽奖人姓名',
-    open_id                     varchar(50)                         null comment '小程序openId',
-    user_type                   tinyint                             null,
-    organ_code                  varchar(20)                         null comment '机构码（ms_organ表的custom_code字段）',
-    code                        int                                 null comment '奖项编码',
-    spu_name                    varchar(100)                        null comment '奖项商品名称',
-    value                       varchar(255)                        null comment '奖品类型type对应的值',
-    reward_name                 varchar(30)                         null comment '奖项名称',
-    reward_img                  varchar(255)                        null comment '奖项名称',
-    lottery_level               int(20)                             null comment '中奖等级（抽中的情况下）',
-    origin_introduce_user_id    varchar(100)                        null comment '原始介绍人userId',
-    origin_introduce_code       varchar(100)                        null comment '邮箱或者工号',
-    origin_introduce_agent_cate varchar(20)                         null comment '原始介绍人的条线',
-    link_id                     varchar(50)                         null comment '链路信息',
-    state                       int(4)                              not null comment '中奖状态： 0：未中奖， 1：已中奖',
-    reward_reserve_date         datetime                            null comment '活动中奖预约时间',
-    reward_reserve_time         varchar(32)                         null comment '活动中奖预约时间描述',
-    qrcode                      varchar(100)                        null comment '核销码',
-    `check`                     int(4)                              null comment '核销状态：0或null未核销，1核销',
-    reward_desc                 varchar(100)                        null comment '奖品说明',
-    reward_type                 int(4)    default 1                 null comment '奖品类型',
-    latitude                    varchar(32)                         null comment '用户抽奖时的纬度地址',
-    longitude                   varchar(32)                         null comment '用户抽奖时的经度地址',
-    area_code                   varchar(16)                         null comment '用户抽奖时的地址',
-    created_time                timestamp default CURRENT_TIMESTAMP not null,
-    updated_time                timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP
-)
-    comment '模板活动抽奖记录表';
+1.营销平台对接活动平台活动ID
+逻辑说明：
+1.通过模板活动-线上线下联合项目活动模板创建的活动均需要将活动ID同步至营销平台
+2.活动平台提供接口给易行销查询个险活动ID
+规则如下：
+1.活动校验未开始或进行中的活动
+2.双方机构必须有重合，至少有一个机构有交集
+3.代理人渠道：必须包含个险渠道
+4.活动id不能是一期的活动
+5.易行销调活动平台接口判断代理人白名单（若有）
+6.个险营销平台点【提交】校验活动id的规则
+7.个险营销平台输入活动id实时校验必须输入数字
+8.只要线上活动的获客和抽奖数据，不要问卷、预约其他的信息（同北斗星项目）
+9.多个项目可能会关联同一个线上活动
+10.易行销查询个险活动ID接口查询需剔除定制活动
